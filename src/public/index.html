@@ -17,21 +17,23 @@
     <div class="game">
       <div class="game-wrapper">
         <div class="game-board">
-          <div class="board-cell" data-cell-index="1"><span>X</span></div>
+          <div class="board-cell" data-cell-index="1"><span>Tic</span></div>
           <div class="board-cell" data-cell-index="2"></div>
           <div class="board-cell" data-cell-index="3"></div>
           <div class="board-cell" data-cell-index="4"></div>
-          <div class="board-cell" data-cell-index="5"><span>O</span></div>
+          <div class="board-cell" data-cell-index="5"><span>Tac</span></div>
           <div class="board-cell" data-cell-index="6"></div>
           <div class="board-cell" data-cell-index="7"></div>
           <div class="board-cell" data-cell-index="8"></div>
-          <div class="board-cell" data-cell-index="9"><span>X</span></div>
+          <div class="board-cell" data-cell-index="9"><span>Toe</span></div>
         </div>
       </div>
-      <div class="messages" id="message-list"></div>
-      <div class="controls">
-        <button id="searchGame">Battle!</button>
-        <button id="restartGame" style="display: none;">Restart</button>
+      <div class="messages">
+        <div class="message-list" id="message-list"></div>
+        <div class="controls">
+          <button id="searchGame">Battle!</button>
+          <button id="restartGame" style="display: none">Restart</button>
+        </div>
       </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>

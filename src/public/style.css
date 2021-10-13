@@ -239,7 +239,7 @@ template {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 64px;
+  font-size: 45px;
   color: white;
   font-family: 'Permanent Marker', cursive;
 }
@@ -252,45 +252,69 @@ template {
 .messages {
   width: 300px;
   height: 300px;
-  padding: 5px 0 5px 50px;
-  overflow: auto;
+  padding: 5px 0 0 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.messages p {
+  margin: 0 0 13px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.message-list {
+  overflow-y: auto;
 }
 
 .success-message {
   color: #5ccd73;
-  font-size: 16px;
-  font-weight: 700;
 }
 
 .error-message {
   color: indianred;
-  font-size: 16px;
-  font-weight: 700;
 }
 
 .info-message {
   color: #5c78cd;
-  font-size: 16px;
-  font-weight: 700;
 }
 
 .controls {
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: flex-start;
   margin-top: 15px;
 }
 
 .controls > button {
-  background-color: #333;
+  background-color: #f00;
   padding: 10px;
   border-radius: 5px;
   color: #fff;
   font-size: 16px;
   font-weight: 700;
 }
+
+/* 
 .controls > button:not(:first-child) {
   margin-left: 15px;
+} */
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #bfbfa7;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #8b8b41;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
 }
