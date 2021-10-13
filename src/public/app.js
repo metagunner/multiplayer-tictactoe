@@ -1,22 +1,9 @@
-/* (function (global) {
-  function _initBoard() {}
-
-  function TicTacToeClient() {
-    _initBoard();
-  }
-
-  TicTacToeClient.prototype = {
-    startGame: function () {},
-  };
-
-  global.TicTacToeClient = TicTacToeClient;
-})(this.window); */
-
 // eslint-disable-next-line no-undef
 const socket = io();
 const gameBoard = document.querySelector('.game-board');
 const messages = document.querySelector('#message-list');
 const searchGameBtn = document.querySelector('#searchGame');
+const restartGameBtn = document.querySelector('#restartGame');
 
 let myTurn = false;
 
@@ -29,14 +16,14 @@ const messageTypes = {
 /**
  * Print the board
  */
-function drawBoard(board) {
-  for (let row = 0; row < board.length; row += 1) {
-    for (let column = 0; column < board[row].length; column += 1) {
-      const arrayIndex = row * board.length + column + 1;
+function drawBoard(boardData) {
+  for (let row = 0; row < boardData.length; row += 1) {
+    for (let column = 0; column < boardData[row].length; column += 1) {
+      const arrayIndex = row * boardData.length + column + 1;
       const cell = document.querySelector(`[data-cell-index="${arrayIndex}"]`);
-      if (board[row][column] !== '' && cell.innerText === '') {
+      if (boardData[row][column] !== '' && cell.innerText === '') {
         const mark = document.createElement('span');
-        mark.innerText = board[row][column];
+        mark.innerText = boardData[row][column];
         cell.append(mark);
       }
     }
@@ -109,7 +96,10 @@ function startGame() {
     boardCell.dataset.cellIndex = i + 1;
 
     boardCell.addEventListener('click', (e) => {
-      const position = e.target.dataset.cellIndex || -1;
+      // const position = e.target.dataset.cellIndex;
+      // console.log('Div element: ', e.currentTarget);
+      // console.log('Clicked element: ', e.target);
+      const position = e.currentTarget.dataset.cellIndex;
       socket.emit('make-move', position);
     });
 
@@ -118,6 +108,15 @@ function startGame() {
 }
 
 searchGameBtn.addEventListener('click', () => {
+  searchGame();
+});
+
+restartGameBtn.addEventListener('click', () => {
+  socket.emit('restart');
+  document.querySelector('.game-result').remove();
+  gameBoard.style.filter = '';
+  myTurn = false;
+  startGame();
   searchGame();
 });
 
@@ -170,6 +169,7 @@ socket.on('game-over', ({ winner, youWon }) => {
   gameBoard.style.filter = 'blur(7px)';
   resultContent.append(winnerHeading);
   document.querySelector('.game-wrapper').prepend(resultContent);
+  restartGameBtn.style.display = 'block';
 });
 
 socket.on('message', (message) => {

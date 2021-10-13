@@ -16,7 +16,7 @@ function onDisconnet(socketId) {
   console.log('disconnected');
   const gameLobby = getGameLobby(socketId);
   if (gameLobby) {
-    if (gameLobby.matchStatus === matchStatus.InMatch) {
+    if (gameLobby.matchStatus !== matchStatus.Finish) {
       // Let the player know that his opponent is left the game
       const opponent = gameLobby.getOpponent(socketId);
       opponent.socket.emit('game-over', {
@@ -83,6 +83,13 @@ function onMakeMove(socket, position) {
   }
 }
 
+function onRestart(socketId) {
+  const gameLobby = getGameLobby(socketId);
+  if (gameLobby && gameLobby.matchStatus === matchStatus.Finish) {
+    leaveGameLobby(socketId);
+  }
+}
+
 io.on('connection', (socket) => {
   console.log('a user connected ', socket.id);
 
@@ -100,6 +107,7 @@ io.on('connection', (socket) => {
     }
   });
   socket.on('make-move', (position) => onMakeMove(socket, position));
+  socket.on('restart', () => onRestart(socket.id));
   socket.on('disconnect', () => onDisconnet(socket.id));
 });
 

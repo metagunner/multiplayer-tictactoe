@@ -83,6 +83,12 @@ GameLobby.prototype = {
     return this.players.find((player) => player.socketId === socketId);
   },
 
+  /**
+   * Get the player opponent
+   *
+   * @param {Object} socketId
+   * @returns player's opponent
+   */
   getOpponent(socketId) {
     const player = this.getPlayer(socketId);
     const opponent = this.getPlayer(player.opponentId);
