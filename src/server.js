@@ -10,7 +10,7 @@ const app = express();
 const httpServer = http.createServer(app);
 const io = new Server(httpServer);
 
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 function onDisconnet(socketId) {
   console.log('disconnected');
